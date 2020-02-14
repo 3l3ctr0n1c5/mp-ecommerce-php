@@ -1,3 +1,74 @@
+<?php
+// SDK de Mercado Pago
+require __DIR__ .  '/vendor/autoload.php';
+
+// $domain = 'http://localhost:8282';
+$domain = 'https://amamarul-mp-ecommerce-php.herokuapp.com';
+
+if( isset($_POST['title']) ) {
+// Agrega credenciales
+MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-090914-5c508e1b02a34fcce879a999574cf5c9-469485398');
+
+$payer = new MercadoPago\Payer();
+$payer->name = "Lalo";
+$payer->surname = "Landa";
+$payer->email = "test_user_63274575@testuser.com";
+// $payer->date_created = "2018-06-02T12:58:41.425-04:00";
+$payer->phone = array(
+  "area_code" => "011",
+  "number" => "2222-3333"
+);
+$payer->identification = array(
+  "type" => "DNI",
+  "number" => "22.333.444"
+);
+$payer->address = array(
+  "street_name" => "Falsa",
+  "street_number" => 1012304,
+  "zip_code" => "1111"
+);
+
+// Crea un objeto de preferencia
+$preference = new MercadoPago\Preference();
+
+// Crea un ítem en la preferencia
+$item = new MercadoPago\Item();
+$item->id           = '1234';
+$item->title        = $_POST['title'];
+$item->description  = 'Dispositivo móvil de Tienda e-commerce';
+$item->picture_url  = $_POST['img'];
+$item->quantity     = $_POST['unit'];
+$item->unit_price   = $_POST['price'];
+$item->currency_id  = "ARS";
+
+$preference->items = [$item];
+
+$preference->payer = $payer;
+$preference->external_reference = 'ABCD1234';
+
+$preference->payment_methods = [
+    "excluded_payment_methods" => [
+        ["id" => "amex"]
+    ],
+    "excluded_payment_types" => [
+        ["id" => "atm"]
+    ],
+    "installments" => 6
+];
+
+$preference->back_urls = [
+    "success" => $domain . "/congratats.php?mp_status=success",
+    "failure" => $domain . "/congratats.php?mp_status=failure",
+    "pending" => $domain . "/congratats.php?mp_status=pending"
+];
+$preference->notification_url = $domain . "/notification.php";
+// $preference->notification_url = "https://amamarul-mp-ecommerce-php.herokuapp.com/notification.php";
+
+// $preference->auto_return = "approved";
+$preference->auto_return = "all";
+$preference->save();
+}
+?>
 <!DOCTYPE html>
 <html class="supports-animation supports-columns svg no-touch no-ie no-oldie no-ios supports-backdrop-filter as-mouseuser" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -87,6 +158,10 @@
                             </div>
                         </div>
                         <div class="as-accessories-results  as-search-desktop">
+                            <?php require __DIR__ . '/mp_response.php'; ?>
+
+                            <?php if( isset($_POST['title']) ) { ?>
+
                             <div class="width:60%">
                                 <div class="as-producttile-tilehero with-paddlenav " style="float:left;">
                                     <div class="as-dummy-container as-dummy-img">
@@ -124,15 +199,21 @@
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo $_POST['price'] ?>
+                                            <?php echo $_POST['unit'] ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo "$" . $_POST['unit'] ?>
+                                            <?php echo "$" . $_POST['price'] ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button>
+                                    <!-- <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button> -->
+                                    <!-- <form action="/congrats.php" method="POST"> -->
+                                    <form>
+                                        <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js" data-preference-id="<?php echo $preference->id; ?>" data-header-color="#2D3277" data-elements-color="#2D3277"
+                                        data-button-label="Pagar la compra"></script>
+                                    </form>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
