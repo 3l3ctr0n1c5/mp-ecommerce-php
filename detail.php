@@ -12,7 +12,7 @@ MercadoPago\SDK::setAccessToken('APP_USR-6718728269189792-112017-dc8b33819521514
 $payer = new MercadoPago\Payer();
 $payer->name = "Lalo";
 $payer->surname = "Landa";
-$payer->email = "test_user_63274575@testuser.com";
+$payer->email = "test_user_72444563@testuser.com";
 // $payer->date_created = "2018-06-02T12:58:41.425-04:00";
 $payer->phone = array(
   "area_code" => "011",
@@ -223,7 +223,7 @@ $preference->save();
         <div class="as-footnotes">
             <div class="as-footnotes-content">
                 <div class="as-footnotes-sosumi">
-                    Todos los derechos reservados Tienda Tecno 2019
+                    Todos los derechos reservados Tienda IDEATIVAS®
                 </div>
             </div>
         </div>
