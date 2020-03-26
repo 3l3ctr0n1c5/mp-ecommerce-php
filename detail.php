@@ -7,16 +7,16 @@ $domain = 'https://amamarul-mp-ecommerce-php.herokuapp.com';
 
 if( isset($_POST['title']) ) {
 // Agrega credenciales
-MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-090914-5c508e1b02a34fcce879a999574cf5c9-469485398');
+MercadoPago\SDK::setAccessToken('APP_USR-6718728269189792-112017-dc8b338195215145a4ec035fdde5cedf-491494389');
 
 $payer = new MercadoPago\Payer();
 $payer->name = "Lalo";
 $payer->surname = "Landa";
-$payer->email = "test_user_63274575@testuser.com";
+$payer->email = "test_user_58295862@testuser.com";
 // $payer->date_created = "2018-06-02T12:58:41.425-04:00";
 $payer->phone = array(
-  "area_code" => "011",
-  "number" => "2222-3333"
+  "area_code" => "052",
+  "number" => "5549737300 "
 );
 $payer->identification = array(
   "type" => "DNI",
