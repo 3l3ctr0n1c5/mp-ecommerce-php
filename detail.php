@@ -1,3 +1,4 @@
+  
 <?php
 // SDK de Mercado Pago
 require __DIR__ .  '/vendor/autoload.php';
@@ -7,12 +8,12 @@ $domain = 'https://amamarul-mp-ecommerce-php.herokuapp.com';
 
 if( isset($_POST['title']) ) {
 // Agrega credenciales
-MercadoPago\SDK::setAccessToken('APP_USR-6718728269189792-112017-dc8b338195215145a4ec035fdde5cedf-491494389');
+MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-090914-5c508e1b02a34fcce879a999574cf5c9-469485398');
 
 $payer = new MercadoPago\Payer();
 $payer->name = "Lalo";
 $payer->surname = "Landa";
-$payer->email = "test_user_72444563@testuser.com";
+$payer->email = "test_user_63274575@testuser.com";
 // $payer->date_created = "2018-06-02T12:58:41.425-04:00";
 $payer->phone = array(
   "area_code" => "011",
@@ -223,7 +224,7 @@ $preference->save();
         <div class="as-footnotes">
             <div class="as-footnotes-content">
                 <div class="as-footnotes-sosumi">
-                    Todos los derechos reservados Tienda IDEATIVAS®
+                    Todos los derechos reservados Tienda Tecno 2019
                 </div>
             </div>
         </div>
